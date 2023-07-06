@@ -57,7 +57,7 @@ The [`send()`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/pro
 
 The `acks` config controls the criteria under which requests are considered complete. The default setting "all" will result in blocking on the full commit of the record, the slowest setting. `acks'配置控制请求被视为完成的标准。如果你使用默认设置 "All "，将导致记录完全提交时的阻塞，这是一个最慢的选项。
 
-详细请参考： [[Kafka - Ack]]
+详细请参考：知识卡片 [Kafka - Ack](./Knowledge Cards/Kafka - Ack.md)
 
 `linger.ms`是说延迟多久来发送。——那设成 linger.ms=0 就是一条一发了吗？No.  Under heavy load, batching will occur regardless of the linger configuration. 在重(zhong)载情况下，无论 linger.ms 配置如何，批处理都会发生。
 
