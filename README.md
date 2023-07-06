@@ -10,3 +10,7 @@
 
 本库 Book 文件夹会拆解和截取原著书籍的体系，记录笔记和分析。
 
+
+GitBook 地址： https://eratos-organization.gitbook.io/knowledge-base/
+
+建议使用 Gitbook 阅读，阅读体验好，内链跳转更方便。
