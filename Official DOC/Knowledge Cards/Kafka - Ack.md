@@ -1,6 +1,8 @@
 
 [acks 确认机制]
 
+ack 直接关系 Kafka 集群的**吞吐量**和**可靠性**。而吞吐量和可靠性，就像硬币的两面，两者不可兼得，只能平衡。
+
 acks 参数制定了**必须有多少个 partition 收到 message, producer 才认为该 message 是写入成功的**。
 
 (笔者在这里强烈推荐阅读 《Design Data Intensive Application》（简称DDIA）的第二部分第五章节 - 5 Leaderless replication - 5.4.1 Quorums for reading and writing)
