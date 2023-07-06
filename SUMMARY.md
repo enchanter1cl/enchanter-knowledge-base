@@ -7,7 +7,7 @@
     * [Kafka - Ack](<Official DOC/Knowledge Cards/Kafka - Ack.md>)
 * [Book](<Book/README.md>)
   * [Design Data Intensive Application](<Book/Design Data Intensive Application/README.md>)
-    * [DDIA-5-](<Book/Design Data Intensive Application/DDIA-5-副本机制.md>)
+    * [DDIA-5-副本机制](<Book/Design Data Intensive Application/DDIA-5-副本机制.md>)
 
 ## Book
 
