@@ -76,7 +76,7 @@ redis distributed lock
  end
 ```
 
-## 1.1 基于 RLock
+## 1.1 基于 RedLock
 
 假设有两个服务 A、B 都希望获得锁，有一个包含了 5 个 redis master 的 Redis Cluster，执行过程大致如下:
 
@@ -92,7 +92,7 @@ redis distributed lock
 
 ![RedLock1.png](https://image-bed-erato.oss-cn-beijing.aliyuncs.com/obsdian/RedLock1.png)
 
-注意，如果 redis 挂了，要延迟重启。比如下图，线程一在 1 2 3 号 redis 上半数同意抢到锁后，3 号还没来得及持久化就挂了，那么.......
+注意，如果某一台 redis 挂了，要延迟重启。比如下图，线程一在 1 2 3 号 redis 上半数同意抢到锁后，3 号还没来得及持久化就挂了，那么.......
 
 ![RedLock立即重启.png](https://image-bed-erato.oss-cn-beijing.aliyuncs.com/obsdian/RedLock%E7%AB%8B%E5%8D%B3%E9%87%8D%E5%90%AF.png)
 
@@ -125,6 +125,9 @@ client A 加锁的锁 key 默认生存时间只有 30 秒，如果超过了 30 �
 **可重入**？
 
 每次 lock 会调用 incrby，每次 unlock 会减一。
+
+![image.png](https://image-bed-erato.oss-cn-beijing.aliyuncs.com/obsdian/20230708120117.png)
+
 
 ## 1.3 进一步理解
 

@@ -10,7 +10,7 @@
 
 [vertical-scaling/scaling up]
 
-纵向延伸还是水平扩展
+【纵向延伸还是水平扩展】
 
 纵向延伸即提升单机性能，比如超级计算机。这样毕竟容错能力有限。虽然高端机器可以使用热插拔的组件（不关机更换磁盘，内存模块，甚至处理器）——但它必然囿于单个地理位置的桎梏。A shared-memory architecture may offer limited fault tolerance—high-end machines have hot-swappable components (you can replace disks, memory modules, and even CPUs without shutting down the machines)—but it is definitely limited to a single geographic location. 
 
