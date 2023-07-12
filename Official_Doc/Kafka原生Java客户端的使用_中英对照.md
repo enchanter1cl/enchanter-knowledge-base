@@ -1,10 +1,10 @@
-# Kafka原生Java客户端的使用_中英对照
+# Kafka原生Java客户端的使用\_中英对照
 
 > 本文摘录和重新整理了官方文档教程中的重点，进行分析解释，并进行部分翻译
 
 Kafka exposes all its functionality over a language independent protocol which has clients available _**in many programming languages**_. However only the Java clients are maintained as part of the main Kafka project, the others are available as independent open source projects. A list of non-Java clients is available [here](https://cwiki.apache.org/confluence/display/KAFKA/Clients). Kafka 有着各种语言的客户端，但只有 Java 客户端是官方维护的。由社区维护的其他语言客户端可以点链接查看。
 
-> 注：在 Kafka 官方文档中 a record (一条记录) 即指其他 MQ 语境中的 a message (一条消息)。
+> 注意：在 Kafka 官方文档中 a record (一条记录) 即指其他 MQ 语境中的 a message (一条消息)。
 
 ## 0. Producer API
 
@@ -52,11 +52,11 @@ for (int i = 0; i < 100; i++)
 producer.close();
 ```
 
-The producer consists of a pool of buffer space that holds records that haven't yet been transmitted to the server as well as a background I/O thread that is responsible for turning these records into requests and transmitting them to the cluster. Failure to close the producer after use will leak these resources. 生产者由一个缓冲空间池组成，该缓冲空间存放尚未传送到 server 的记录，以及一个后台I/O线程，负责将这些 record 变成 request ，并将其传送到 cluster。如果在使用后没有关闭生产者，将会泄露这些资源。
+The producer consists of a pool of buffer space that holds <mark style="color:purple;">records</mark> that haven't yet been transmitted to the server as well as a background I/O thread that is responsible for turning these records into requests and transmitting them to the cluster. Failure to close the producer after use will leak these resources. 生产者由一个缓冲空间池组成，该缓冲空间存放尚未传送到 server 的记录，以及一个后台 I/O 线程，负责将这些 record 变成 request ，并将其传送到 cluster。如果在使用后没有关闭生产者，将会泄露这些资源。
 
 The [`send()`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html#send\(org.apache.kafka.clients.producer.ProducerRecord\)) method is asynchronous. When called, it adds the record to a buffer of pending record sends and immediately returns. This allows the producer to batch together individual records for efficiency. \[`send()`]方法是异步的。当被调用时，它将记录添加到一个待定记录发送的缓冲区，并**立即返回**。
 
-The `acks` config controls the criteria under which requests are considered complete. The default setting "all" will result in blocking on the full commit of the record, the slowest setting. \`acks'配置控制请求被视为完成的标准。如果你使用默认设置 "All "，将导致记录完全提交时的阻塞，这是一个最慢的选项。
+The `acks` config controls the criteria under which requests are considered complete. The default setting "all" will result in blocking on the full commit of the record, the slowest setting. `acks`配置控制着请求被视为完成的标准。如果你使用默认设置 "All "，将导致记录完全提交时的阻塞，这是一个最慢的选项。
 
 详细请参考：知识卡片 \[Kafka - Ack]\(./Knowledge Cards/Kafka - Ack.md)
 
@@ -64,7 +64,7 @@ The `acks` config controls the criteria under which requests are considered comp
 
 `linger.ms`是说延迟多久来发送。——那设成 linger.ms=0 就是一条一发了吗？No. Under heavy load, batching will occur regardless of the linger configuration. 在重(zhong)载情况下，无论 linger.ms 配置如何，批处理都会发生。
 
-The `key.serializer` and `value.serializer` instruct how to turn the key and value **objects** the user provides with their `ProducerRecord` into bytes. You can use the included [`ByteArraySerializer`](https://kafka.apache.org/35/javadoc/org/apache/kafka/common/serialization/ByteArraySerializer.html) or [`StringSerializer`](https://kafka.apache.org/35/javadoc/org/apache/kafka/common/serialization/StringSerializer.html) for simple byte or string types. 这两个属性是用来设置由 String 到 bytes 的序列化。（如果你想发送 Java 对象，可以进行其他设置。不过笔者还是建议先转成 json 字符串）
+The `key.serializer` and `value.serializer` instruct how to turn the key and value <mark style="color:orange;">**objects**</mark> the user provides with their `ProducerRecord` into <mark style="color:orange;">bytes</mark>. You can use the included [`ByteArraySerializer`](https://kafka.apache.org/35/javadoc/org/apache/kafka/common/serialization/ByteArraySerializer.html) or [`StringSerializer`](https://kafka.apache.org/35/javadoc/org/apache/kafka/common/serialization/StringSerializer.html) for simple byte or string types. 这两个属性是用来设置由 String 到 bytes 的序列化。（如果你想发送 Java 对象，可以进行其他设置。不过笔者还是建议先转成 json 字符串）
 
 ## 1. Consumer API
 
@@ -80,15 +80,15 @@ The `key.serializer` and `value.serializer` instruct how to turn the key and val
 
 A client that consumes records from a Kafka cluster.
 
-The consumer maintains TCP connections to the necessary brokers to fetch data. Failure to close the consumer after use will leak these **connections**. The consumer is not thread-safe. See [Multi-threaded Processing](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#multithreaded) for more details. 消费者维护着 TCP 长连接。用完请记得关闭资源。
+The consumer <mark style="color:yellow;">maintains TCP connections</mark> to the necessary brokers to fetch data. Failure to close the consumer after use will leak these **connections**. The consumer is not thread-safe. See [Multi-threaded Processing](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#multithreaded) for more details. 消费者维护着 TCP 长连接。用完请记得关闭资源。
 
 ### 1.1 从一个面试问题开始
 
 在我们正式开始研究官方文档前，请先试着回答这个问题——
 
-Kafka 会丢消息吗？怎样解决？
+_**Kafka 会丢消息吗？怎样解决？**_
 
-那会重复消费吗？怎样解决？
+_**那会重复消费吗？怎样解决？**_
 
 这个问题涉及生产端到 broker 再到消费端的一系列细节。而在本文中我们只探讨消费端。
 
@@ -114,13 +114,13 @@ MQ 官网常见的两种语义 “at-most-onece” “at-least-once”
 
 `offset` 与消费位置
 
-Kafka maintains a numerical offset for each record in a partition. This offset acts as a **unique identifier** of a record within that partition, and also denotes the position of the consumer in the partition. For example, a consumer which is at position 5 has consumed records with offsets 0 through 4 and will next receive the record with offset 5. Kafka 为分区中的每条记录维护一个数字偏移。这个偏移量作为该分区中一条记录的唯一标识符，同时也表示消费者在该分区中的位置。例如，一个在位置 5 的消费者已经消费了偏移量为 0 到 4 的记录，接下来将收到偏移量为 5 的记录。/_可以这样理解，offset 实际上就是 kafka db 中每条 record 的主键 primary key，partition 就是一张 table，不过严格讲是 分库分表 后的一张分表 partition table_ /There are actually two notions of position relevant to the user of the consumer:
+Kafka maintains a numerical offset for each record in a partition. This offset acts as a **unique identifier** of a record within that partition, and also denotes the position of the consumer in the partition. For example, a consumer which is at position 5 has consumed records with offsets 0 through 4 and will next receive the record with offset 5. Kafka 为分区中的每条记录维护一个数字偏移。这个偏移量作为该分区中一条记录的唯一标识符，同时也表示消费者在该分区中的位置。例如，一个在位置 5 的消费者已经消费了偏移量为 0 到 4 的记录，接下来将收到偏移量为 5 的记录。<mark style="color:purple;">/</mark>_<mark style="color:purple;">可以这样理解，offset 实际上就是 kafka 这个数据库中每条 record 的主键 primary key，partition 就是一张 table，不过严格讲是 分库分表 后的一张“分表”。</mark>_ <mark style="color:purple;"></mark><mark style="color:purple;">/</mark> There are actually two notions of position relevant to the user of the consumer:
 
 The [`position`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#position\(org.apache.kafka.common.TopicPartition\)) . It will be one larger than the highest offset the consumer has seen in that partition. `position` 永远比最高的 offset 大 1.
 
-The [`committed position`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitSync\(\)) is the last offset that has been stored securely. Should the process fail and restart, this is the offset that the consumer will recover to. The consumer can either automatically commit offsets **periodically**; or it can choose to control this committed position **manually** by calling one of the commit APIs (e.g. [`commitSync`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitSync\(\)) and [`commitAsync`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitAsync\(org.apache.kafka.clients.consumer.OffsetCommitCallback\))). '已提交位置'， 如果 consumer 从故障恢复，会接着这个位置消费。‘提交’ 可以周期自动也可以手动。面试官超级喜欢问哦。
+The [`committed position`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitSync\(\)) is the last offset that has been stored securely. Should the process fail and restart, this is the offset that the consumer will recover to. The consumer can either automatically commit offsets **periodically**; or it can choose to control this committed position **manually** by calling one of the commit APIs (e.g. [`commitSync`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitSync\(\)) and [`commitAsync`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitAsync\(org.apache.kafka.clients.consumer.OffsetCommitCallback\))). '已提交位置'，如果 consumer 从故障恢复，会接着这个位置消费。‘提交’ 可以周期自动也可以手动。面试官超级喜欢问哦。
 
-This distinction gives the consumer control over when a record is considered consumed.
+This distinction gives the consumer control over when <mark style="background-color:yellow;">a record is considered consumed.</mark>
 
 ### 1.3 Consumer Groups and Topic Subscriptions
 
@@ -130,7 +130,7 @@ Kafka uses the concept of _consumer groups_ to allow a pool of processes to divi
 
 Each consumer in a group can dynamically set the list of topics it wants to subscribe to through one of the [`subscribe`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#subscribe\(java.util.Collection,org.apache.kafka.clients.consumer.ConsumerRebalanceListener\)) APIs. .....each partition is assigned to exactly one consumer in the group. So if there is a topic with four partitions, and a consumer group with two processes, each process would consume from two partitions. partition 会被多对一地分配给组内 consumer。 /_单纯为了分工，想象一下你有个几千万行的大文件，让 thread pool 中 thread-0 处理process 0-999行， thread-1 处理 1000-1999行......._/
 
-\[“臭名昭著”的 rebalancing]
+\[ “臭名昭著”的 rebalancing ]
 
 （为什么说他“臭名昭著”呢，因为 bug 很多，而且是消息顺序消费的大杀手。生产环境下一般尽量防止 Kafka 自动 rebalancing）
 
@@ -153,9 +153,9 @@ Settings to control the behavior of the poll loop 两个可以控制轮询的选
 1. `max.poll.interval.ms`: By increasing the interval between expected polls, you can give the consumer more time to handle a batch of records returned from [`poll(Duration)`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#poll\(java.time.Duration\)). 轮询间隔。
 2. `max.poll.records`: To limit the total records returned from a single call to poll. 限制单次调用轮询所返回的总记录数。
 
-\[丢消息的时刻]
+\[ Kafka 丢消息的时刻 ]
 
-For use cases where message processing time varies unpredictably, neither of these options may be sufficient. 对于消息处理时间变化不可预测的用例，这两个选项可能都不够。 consumer maybe continue calling [`poll`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#poll\(java.time.Duration\)) while the processor is still working. (没处理完就 call poll()). Some care must be taken to ensure that committed offsets do not get ahead of the actual position. /_commiteed offsets 提前于实际位置，即丢消息_/ Typically, you must disable automatic commits and manually commit processed offsets for records only after the thread has finished handling them (depending on the delivery semantics you need). 你必须禁用自动提交，并在线程处理完记录后才手动提交处理过的偏移量（取决于你需要的交付语义） Note also that you will need to [`pause`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#pause\(java.util.Collection\)) the partition so that no new records are received from poll until after thread has finished handling those previously returned. 还要注意的是，你需要[`pause`](<Kafka 原生 Java 客户端的使用 中英对照-ver.2.0.md>)分区，以便在线程处理完之前返回的记录之前，不会从轮询中收到新的记录。
+For use cases where message processing time varies unpredictably, neither of these options may be sufficient. 对于消息处理时间变化不可预测的用例，这两个选项可能都不够。 consumer maybe continue calling [`poll`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#poll\(java.time.Duration\)) while the processor is still working. (没处理完就 call poll()). Some care must be taken to ensure that committed offsets do not get ahead of the actual position. /_commiteed offsets 提前于实际位置，即丢消息_/ Typically, you must disable <mark style="background-color:red;">automatic commits</mark> and <mark style="background-color:red;">manually commit</mark> processed offsets for records only after the thread has finished handling them (depending on the delivery semantics you need). 你必须禁用自动提交，并在线程处理完记录后才手动提交处理过的偏移量（取决于你需要的交付语义） Note also that you will need to [`pause`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#pause\(java.util.Collection\)) the partition so that no new records are received from poll until after thread has finished handling those previously returned. 还要注意的是，你需要`pause`分区，以便在线程处理完之前返回的记录之前，不会从轮询中收到新的记录。
 
 ### 1.5 用例
 
@@ -186,7 +186,7 @@ For use cases where message processing time varies unpredictably, neither of the
 
 The connection to the cluster is bootstrapped by specifying a list of one or more brokers to contact using the configuration `bootstrap.servers`. 该属性用来指定 broker 集群地址。
 
-The deserializer settings specify how to turn bytes into objects. For example, by specifying string deserializers, we are saying that our record's key and value will just be simple strings. bytes 反序列化为 objects 对象, 本例中是反序列化为 String 对象.
+The deserializer settings specify how to turn <mark style="color:orange;">bytes</mark> into <mark style="color:orange;">objects.</mark> For example, by specifying string deserializers, we are saying that our record's key and value will just be simple strings. bytes 反序列化为 objects 对象, 本例中是反序列化为 String 对象.
 
 #### 1.5.1 Manual Offset Control
 
@@ -209,9 +209,9 @@ The deserializer settings specify how to turn bytes into objects. For example, b
      }
 ```
 
-In this example, When we have enough records batched, we will insert them into a database. If we allowed offsets to auto commit as in the previous example, records would be considered consumed after they were returned to the user in [`poll`](https://kafka.apache.org/35/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#poll\(java.time.Duration\)). 在本例中，每攒一批 records 就进行一次处理——插一次库。 It would then be possible for our process to fail after batching the records, but before they had been inserted into the database (上一例的语义：轮询来了就是消费了。poll 来了就是 consumed 了。(举个不太恰当的例子哈.....健身教程视频最常见的弹幕就是......“收藏了就是练了”)。).
+In this example, When we have enough records batched, we will insert them into a database. If we allowed offsets to auto commit as in the previous example, records would be considered consumed after they were returned to the user in `poll`. 在本例中，每攒一批 records 就进行一次处理——插一次库。 It would then be possible for our process to fail after batching the records, <mark style="color:orange;">but before they had been inserted into the database (上一例的语义：轮询来了就是消费了。poll 来了就是 consumed 了。)(举个不太恰当的例子哈.....健身教程视频最常见的弹幕就是......“收藏了就是练了”)。</mark>
 
-To avoid this, we will manually commit the offsets only after the records have have been inserted into the database. This raises the opposite possibility: the process could fail in the interval after the insert into the database but before the commit (even though this would likely just be a few milliseconds, it is a possibility). The process that took over consumption would 会重复消费，重复插库。 Used in this way Kafka provides what is often called "at-least-once" delivery guarantees.
+To avoid this, we will manually commit the offsets only after the records have have been inserted into the database. This raises the opposite possibility: the process could fail in the interval after the insert into the database but before the commit (even though this would likely just be a few milliseconds, it is a possibility). The process that took over consumption would 会重复消费，重复插库。 Used in this way Kafka provides what is often called <mark style="background-color:red;">"at-least-once"</mark> delivery guarantees.
 
 你甚至还可以自主控制提交的 offset 是多少：
 
