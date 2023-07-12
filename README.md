@@ -19,6 +19,6 @@ GitBook 地址： https://eratos-organization.gitbook.io/knowledge-base/
 
 推荐阅读：
 
-[分布式锁 Distributed Lock]([分布式锁 Distributed Lock - Knowledge Base (gitbook.io)](https://eratos-organization.gitbook.io/knowledge-base/分布式/分布式锁 Distributed Lock))
+[分布式锁 Distributed Lock](https://eratos-organization.gitbook.io/knowledge-base/fen-bu-shi/fen-bu-shi-suo-distributed-lock)
 
-[Kafka 原生 Java 客户端的使用细节 中英对照]([Kafka 原生 Java 客户端的使用 中英对照-ver.2.0 - Knowledge Base (gitbook.io)](https://eratos-organization.gitbook.io/knowledge-base/Official DOC/Kafka 原生 Java 客户端的使用 中英对照-ver.2.0))
+[Kafka 原生 Java 客户端的使用细节 中英对照](https://eratos-organization.gitbook.io/knowledge-base/official_doc/kafka-yuan-sheng-java-ke-hu-duan-de-shi-yong-zhong-ying-dui-zhao)
