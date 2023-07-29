@@ -1,4 +1,4 @@
-# 用Registry\_container\_搭建\_docker\_registry\_私服
+# 用Registry\_container\_搭建\_docker\_registry\_私服\_前置知识
 
 > 带读文档版
 
@@ -97,24 +97,6 @@ These examples assume the following:
 
 1.  Create a `certs` directory.
 
-<<<<<<< HEAD
-1. Create a `certs` directory.
-   
-    ```shell
-    $ mkdir -p certs
-    ```
-    
-    Copy the `.crt` and `.key` files from the CA into the `certs` directory. The following steps assume that the files are named `domain.crt` and `domain.key`.
-    
-2. Stop the registry if it is currently running.
-   
-    ```shell
-    $ docker container stop registry
-    ```
-    
-3. Restart the registry, directing it to use the TLS certificate. **This command bind-mounts the `certs/` directory into the container at `/certs/`**, <span style="color:orange">and sets environment variables that tell the container where to find</span> the `domain.crt` and `domain.key` file. The registry runs on port 443, the default HTTPS port.
-   
-=======
     ```shell
     $ mkdir -p certs
     ```
@@ -125,34 +107,28 @@ These examples assume the following:
     ```shell
     $ docker container stop registry
     ```
-3.  Restart the registry, directing it to use the TLS certificate. **This command bind-mounts the `certs/` directory into the container at `/certs/`**, and sets environment variables that tell the container where to find the `domain.crt` and `domain.key` file. The registry runs on port 443, the default HTTPS port.
+3. Restart the registry, directing it to use the TLS certificate. **This command bind-mounts the `certs/` directory into the container at `/certs/`**, and sets environment variables that tell the container where to find the `domain.crt` and `domain.key` file. The registry runs on port 443, the default HTTPS port.
 
->>>>>>> d373ebdd29fc2d3c913c2ba5af852dae0677debf
-    ```shell
-    $ docker run -d \
-      --restart=always \
-      --name registry \
-      -v "$(pwd)"/certs:/certs \
-      -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
-      -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
-      -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
-      -p 443:443 \
-      registry:2
-    ```
-<<<<<<< HEAD
-    
+```bash
+$ docker run -d \
+ --restart=always \
+ --name registry \
+ -v "$(pwd)"/certs:/certs \
+ -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
+ -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+ -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+ -p 443:443 \
+ registry:2
+```
+
 4. Docker clients （即你的其他主机上的 docker） can now pull from and push to your registry using its external address. The following commands demonstrate this:
-   
-=======
-4.  Docker clients （即你的其他主机上的 docker） can now pull from and push to your registry using its external address. The following commands demonstrate this:
 
->>>>>>> d373ebdd29fc2d3c913c2ba5af852dae0677debf
-    ```shell
-    $ docker pull ubuntu:16.04
-    $ docker tag ubuntu:16.04 myregistry.domain.com/my-ubuntu
-    $ docker push myregistry.domain.com/my-ubuntu
-    $ docker pull myregistry.domain.com/my-ubuntu
-    ```
+```bash
+$ docker pull ubuntu:16.04 
+$ docker tag ubuntu:16.04 myregistry.domain.com/my-ubuntu 
+$ docker push myregistry.domain.com/my-ubuntu 
+$ docker pull myregistry.domain.com/my-ubuntu
+```
 
 ### Restricting access
 
@@ -164,70 +140,49 @@ The simplest way to achieve access restriction is through basic authentication (
 
 > **Warning**: You **cannot** use authentication with authentication schemes that send credentials as clear text. You must [configure TLS first](https://docs.docker.com/registry/deploying/#run-an-externally-accessible-registry) for authentication to work. 您**不能**使用以明文发送凭证的身份验证方案进行身份验证。必须先配置 TLS，身份验证才能正常工作。
 
-1.  Create a password file with one entry for the user `testuser`, with password `testpassword`:
+1. Create a password file with one entry for the user `testuser`, with password `testpassword`:
 
-<<<<<<< HEAD
-1. Create a password file with one entry for the user `testuser`, with password `testpassword`:
-   
-=======
->>>>>>> d373ebdd29fc2d3c913c2ba5af852dae0677debf
-    ```shell
-    $ mkdir auth
-    $ docker run \
-      --entrypoint htpasswd \
-      httpd:2 -Bbn testuser testpassword > auth/htpasswd
-    ```
-<<<<<<< HEAD
-    
+```bash
+$ mkdir auth $ docker run \ 
+--entrypoint htpasswd \ 
+httpd:2 -Bbn testuser testpassword > auth/htpasswd
+```
+
 2. Stop the registry.
-   
-    ```shell
-    $ docker container stop registry
-    ```
-    
+
+```shell
+$ docker container stop registry
+```
+
 3. Start the registry with basic authentication.
-   
-=======
-2.  Stop the registry.
 
-    ```shell
-    $ docker container stop registry
-    ```
-3.  Start the registry with basic authentication.
+```bash
+$ docker run -d \ 
+-p 5000:5000 \ 
+--restart=always \ 
+--name registry \ 
+-v "$(pwd)"/auth:/auth \ 
+-e "REGISTRY_AUTH=htpasswd" \ 
+-e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \ 
+-e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \ 
+-v "$(pwd)"/certs:/certs \ 
+-e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \ 
+-e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \ 
+registry:2
+```
 
->>>>>>> d373ebdd29fc2d3c913c2ba5af852dae0677debf
-    ```shell
-    $ docker run -d \
-      -p 5000:5000 \
-      --restart=always \
-      --name registry \
-      -v "$(pwd)"/auth:/auth \
-      -e "REGISTRY_AUTH=htpasswd" \
-      -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
-      -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
-      -v "$(pwd)"/certs:/certs \
-      -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
-      -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
-      registry:2
-    ```
 4. Try to pull an image from the registry, or push an image to the registry. These commands fail.
-<<<<<<< HEAD
-   
 5. Log in to the registry.
-   
-=======
-5.  Log in to the registry.
 
->>>>>>> d373ebdd29fc2d3c913c2ba5af852dae0677debf
-    ```
-    $ docker login myregistrydomain.com:5000
-    ```
+```bash
+$ docker login myregistrydomain.com:5000
+```
 
 Provide the username and password from the first step. Test that you can now pull an image from the registry or push an image to the registry.
 
 ### Deploy your registry using a Compose file
 
-If your registry invocation is advanced, it may be easier to use a Docker compose file to deploy it, rather than relying on a specific `docker run` invocation. 有时使用 docker compose 进行部署可能比依赖特定的 "docker run " 调用更方便. Use the following example `docker-compose.yml` as a template.
+If your registry invocation is advanced, it may be easier to use a Docker compose file to deploy it, rather than relying on a specific `docker run` invocation. 有时使用 docker compose 进行部署可能比依赖特定的 "docker run" 调用更方便. Use the following example `docker-compose.yml` as a template.
 
 ```yaml
 registry:
