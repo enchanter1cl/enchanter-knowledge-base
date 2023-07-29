@@ -60,7 +60,7 @@ StorageClass 为管理员提供了描述存储 "类" 的方法。 不同的类�
 
 ### 1.1 The StorageClass Resource
 
-Each StorageClass contains the fields `provisioner`, `parameters`, and `reclaimPolicy`, which are used when a Persist 这些字段会在 StorageClass 需要动态制备 PersistentVolume 时使用到。
+Each StorageClass contains the fields `provisioner`, `parameters`, and `reclaimPolicy`, which are used when a PV is makes.  这些字段会在 StorageClass 需要动态制备 PersistentVolume 时使用到。
 
 StorageClass 对象, 一旦创建了对象就不能再对其更新。
 
@@ -128,7 +128,7 @@ k8s 并不会内置 NFS provisioner.。我们需要自己安装一些外部 NFS 
 
 启用动态卷制备
 
-要启用动态制备功能，集群管理员需要为用户预先创建一个或多个 `StorageClass` 对象。 `StorageClass` 对象定义当动态制备被调用时，哪一个驱动将被使用(/_哪块场地将被使用？_/)和哪些参数将被传递给驱动。 StorageClass 对象的名字必须是一个合法的 [DNS 子域名](https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。 以下清单创建了一个 `StorageClass`  "slow"，它提供类似标准磁盘的永久磁盘。
+要启用动态制备功能，集群管理员需要为用户预先创建一个或多个 `StorageClass` 对象。 `StorageClass` 对象定义了当动态制备被调用时，哪一个驱动将被使用(/_哪块场地将被使用？_/)和哪些参数将被传递给驱动。 StorageClass 对象的名字必须是一个合法的 [DNS 子域名](https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。 以下清单创建了一个 `StorageClass`  "slow"，它提供类似标准磁盘的永久磁盘。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -154,9 +154,9 @@ parameters:
 
 ### 2.2 Using Dynamic Provision
 
-用户通过在 `PersistentVolumeClaim` 中包含存储类来请求动态制备的存储。
+用户通过在 `PersistentVolumeClaim` 中包含存储类 StorageClass 来请求动态制备的存储。
 
-例如，要选择 “fast” StorageClass，用户将创建 PVC 申请书：
+例如，要选择 “fast” StorageClass，那么用户在创建 PVC 申请书时：
 
 a user would create the following PersistentVolumeClaim:
 
