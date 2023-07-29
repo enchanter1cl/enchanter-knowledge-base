@@ -2,6 +2,8 @@
 
 registry 是 dockerhub 上的一个 Image. 要求 docker 1.6+
 
+![image.png](https://image-bed-erato.oss-cn-beijing.aliyuncs.com/obsdian/20230730021730.png)
+
 该 image 的 Overview 非常简(fu)洁(yan)，就不看了。用法建议看 docker 官方文档。
 
 # Docker 的官方文档
@@ -90,7 +92,7 @@ These examples assume the following:
 > 由于没钱，本教程中我们使用自签发的 CA 证书。生成教程可参考这篇《使用自签发 CA 证书运行docker_registry》
 
 1. Create a `certs` directory.
-    
+   
     ```shell
     $ mkdir -p certs
     ```
@@ -98,13 +100,13 @@ These examples assume the following:
     Copy the `.crt` and `.key` files from the CA into the `certs` directory. The following steps assume that the files are named `domain.crt` and `domain.key`.
     
 2. Stop the registry if it is currently running.
-    
+   
     ```shell
     $ docker container stop registry
     ```
     
 3. Restart the registry, directing it to use the TLS certificate. **This command bind-mounts the `certs/` directory into the container at `/certs/`**, <span style="color:orange">and sets environment variables that tell the container where to find</span> the `domain.crt` and `domain.key` file. The registry runs on port 443, the default HTTPS port.
-    
+   
     ```shell
     $ docker run -d \
       --restart=always \
@@ -118,7 +120,7 @@ These examples assume the following:
     ```
     
 4. Docker clients （即你的其他主机上的 docker） can now pull from and push to your registry using its external address. The following commands demonstrate this:
-    
+   
     ```shell
     $ docker pull ubuntu:16.04
     $ docker tag ubuntu:16.04 myregistry.domain.com/my-ubuntu
@@ -137,7 +139,7 @@ The simplest way to achieve access restriction is through basic authentication (
 > **Warning**: You **cannot** use authentication with authentication schemes that send credentials as clear text. You must [configure TLS first](https://docs.docker.com/registry/deploying/#run-an-externally-accessible-registry) for authentication to work.   您**不能**使用以明文发送凭证的身份验证方案进行身份验证。必须先配置 TLS，身份验证才能正常工作。
 
 1. Create a password file with one entry for the user `testuser`, with password `testpassword`:
-    
+   
     ```shell
     $ mkdir auth
     $ docker run \
@@ -146,13 +148,13 @@ The simplest way to achieve access restriction is through basic authentication (
     ```
     
 2. Stop the registry.
-    
+   
     ```shell
     $ docker container stop registry
     ```
     
 3. Start the registry with basic authentication.
-    
+   
     ```shell
     $ docker run -d \
       -p 5000:5000 \
@@ -169,9 +171,9 @@ The simplest way to achieve access restriction is through basic authentication (
     ```
     
 4. Try to pull an image from the registry, or push an image to the registry. These commands fail.
-    
+   
 5. Log in to the registry.
-    
+   
     ```
     $ docker login myregistrydomain.com:5000
     ```
