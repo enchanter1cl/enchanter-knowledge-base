@@ -11,6 +11,7 @@
   * [JVM 重点概述](<JVM/JVM 重点概述.md>)
 * [Java SE](Java\_SE/README.md)
   * [Java 快问快答](<Java\_SE/Java 快问快答.md>)
+  * [Maven - basic](java\_se/maven-basic.md)
 * [Official DOC](Official\_Doc/README.md)
   * [Kafka原生Java客户端的使用\_中英对照](Official\_Doc/Kafka原生Java客户端的使用细节\_中英对照.md)
   * [Knowledge Cards](<Official\_Doc/Knowledge Cards/README.md>)
