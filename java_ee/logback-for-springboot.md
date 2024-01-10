@@ -57,7 +57,7 @@ Spring Boot also gives us access to a more fine-grained log level setting.
 First, we can set our logging level within our <mark style="color:orange;">**VM Options**</mark>:
 
 ```bash
--Dlogging.level.org.springframework=DEBUG
+-Dlogging.level.org.springframework=INFO
 -Dlogging.level.com.baeldung=DEBUG
 ```
 
@@ -65,13 +65,13 @@ Alternatively, if we’re using Maven, we can **define our log settings via the*
 
 ```bash
 mvn spring-boot:run
-  -Dspring-boot.run.arguments=--logging.level.org.springframework=DEBUG,--logging.level.com.baeldung=DEBUG
+  -Dspring-boot.run.arguments=--logging.level.org.springframework=INFO,--logging.level.com.baeldung=DEBUG
 ```
 
 If we want to change the verbosity permanently, we can do so in the _<mark style="background-color:green;">application.properties</mark>_ file as described [here](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html#boot-features-custom-log-levels):
 
 ```plaintext
-logging.level.root=WARN
+logging.level.root=INFO
 logging.level.com.baeldung=DEBUG
 ```
 
@@ -81,7 +81,7 @@ We mentioned that Spring Boot Starter uses Logback by default. Let’s see how t
 
 ```markup
 <logger name="org.springframework" level="INFO" />
-<logger name="com.baeldung" level="INFO" />
+<logger name="com.baeldung" level="DEBUG" />
 ```
 
 这几个选项，最终日志级别会是最低的
@@ -140,7 +140,7 @@ Let’s see **how to include a Logback configuration** with a different color an
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "com.baeldung*" at TRACE level -->
+    <!-- LOG "com.baeldung*" at DEBUG level -->
     <logger name="com.baeldung" level="trace" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
