@@ -47,7 +47,7 @@ As we can see, **the default logging level of the Logger is preset to INFO, mean
 In order to activate them without changing the configuration, **we can pass the **_**–debug**_** or **_**–trace**_** arguments on the command line**:
 
 ```bash
-java -jar target/demo-1.0.jar --trace#
+java -jar target/demo-1.0.jar --debug
 ```
 
 ### **2.2 Log Levels**
@@ -57,11 +57,47 @@ Spring Boot also gives us access to a more fine-grained log level setting.
 First, we can set our logging level within our <mark style="color:orange;">**VM Options**</mark>:
 
 ```bash
--Dlogging.level.org.springframework=TRACE
--Dlogging.level.com.baeldung=TACE
+-Dlogging.level.org.springframework=DEBUG
+-Dlogging.level.com.baeldung=DEBUG
 ```
 
-Alternatively, if we’re using Maven, we can **define our log settings via the command line**:
+Alternatively, if we’re using Maven, we can **define our log settings via the** <mark style="color:yellow;">command line</mark>:
+
+```bash
+mvn spring-boot:run
+  -Dspring-boot.run.arguments=--logging.level.org.springframework=DEBUG,--logging.level.com.baeldung=DEBUG
+```
+
+If we want to change the verbosity permanently, we can do so in the _<mark style="background-color:green;">application.properties</mark>_ file as described [here](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html#boot-features-custom-log-levels):
+
+```plaintext
+logging.level.root=WARN
+logging.level.com.baeldung=DEBUG
+```
+
+Finally, we can **change the logging level permanently by using our logging framework **<mark style="color:red;">**configuration file.**</mark>
+
+We mentioned that Spring Boot Starter uses Logback by default. Let’s see how to define a fragment of a Logback configuration file in which we set the level for two separate packages:
+
+```markup
+<logger name="org.springframework" level="INFO" />
+<logger name="com.baeldung" level="INFO" />
+```
+
+这几个选项，最终日志级别会是最低的
+
+
+
+## 3. <mark style="color:red;">Logback Configuration</mark>
+
+Let’s see **how to include a Logback configuration** with a different color and logging pattern, with separate specifications for _console_ and _file_ output, and with a decent _rolling policy_ to avoid generating huge log files.
+
+**When a file in the classpath has one of the following names, Spring Boot will automatically load it** over the default configuration:
+
+* _logback-spring.xml_
+* _logback.xml_
+* _logback-spring.groovy_
+* _logback.groovy_
 
 
 
