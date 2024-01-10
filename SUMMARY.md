@@ -6,6 +6,7 @@
     * [DDIA-5-副本机制](<Book/Design Data Intensive Application/DDIA-5-副本机制.md>)
 * [JAVA\_EE](JAVA\_EE/README.md)
   * [单点登录SSO-xxl-sso为例](JAVA\_EE/单点登录SSO.md)
+  * [Logback for SpringBoot](java\_ee/logback-for-springboot.md)
 * [JVM](JVM/README.md)
   * [GC](JVM/GC.md)
   * [JVM 重点概述](<JVM/JVM 重点概述.md>)
