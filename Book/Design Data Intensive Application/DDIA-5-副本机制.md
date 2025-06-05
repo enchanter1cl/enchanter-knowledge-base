@@ -35,7 +35,7 @@
 
 【备份 Log 的实现】
 
-* **Statement-based replication 基于语句的复制**。记录下它执行的_每个写入请求_（**语句（statement）**
+* **Statement-based replication 基于语句的复制**。记录下它执行&#x7684;_&#x6BCF;个写入请求_（**语句（statement）**
 * **Write-ahead log (WAL) shipping WAL模式** 。See Charpter 3. In either case, the log is an append-only sequence of bytes containing all writes to the database. disanvantage: a WAL contains details of which bytes were changed in which disk blocks. This makes replication closely coupled to the storage engine. If the database changes its _**storage format**_ from one version to another, it is typically not possible to run different _**versions**_ of the database software on the leader and the followers. 在任何一种情况下，日志都是包含所有数据库写入的仅追加字节序列。WAL 包含哪些磁盘块中的哪些字节发生了更改。这使复制与存储引擎紧密耦合。如果数据库将其存储格式从一个版本更改为另一个版本，通常不可能在主库和从库上运行不同版本的数据库软件。
 * **Logical (row-based) log replication逻辑日志复制（基于行）**。这种复制日志被称为逻辑日志，以将其与存储引擎的（物理）数据表示区分开来。MySQL的二进制日志（当配置为使用基于行的复制时）就是使用这种方法。
 
@@ -66,7 +66,7 @@
 Limitations of Quorum Consistency 法定人数一致性的局限性
 
 * 如果两个写入同时发生，不清楚哪一个先发生。在这种情况下，唯一安全的解决方案是合并并发写入。如果根据时间戳（最后写入胜利）挑选出一个胜者，则由于时钟偏差，写入可能会丢失。我们将在“检测并发写入”继续讨论此话题。If two writes occur concurrently, it is not clear which one happened first. In this case, the only safe solution is to merge the concurrent writes (see “Handling Write Conflicts”. If a winner is picked based on a timestamp (last write wins), writes can be lost due to clock skew . We will return to this topic in “Detecting Concurrent Writes“ /_这段是说，在时钟偏差 clock skew (指服务器之间的时间不一致)情况下, new value 可并不一定是 new value_/
-* 如果写操作在某些副本上成功，而在其他节点上失败（例如，因为某些节点上的磁盘已满），在小于 w 个副本上写入成功。所以整体判定写入失败，但整体写入失败并没有在写入成功的副本上回滚。这意味着如果一个写入虽然报告失败，后续的读取仍然可能会读取这次失败写入的值。If a write succeeded on some replicas but failed on others (for example because the disks on some nodes are full), and overall succeeded on fewer than _w_replicas, it is not rolled back on the replicas where it succeeded. This means that if _**a write was reported as failed**_, subsequent reads may or may not return the value from that write /_类似脏读，读到了该 回滚的 data_/
+* 如果写操作在某些副本上成功，而在其他节点上失败（例如，因为某些节点上的磁盘已满），在小于 w 个副本上写入成功。所以整体判定写入失败，但整体写入失败并没有在写入成功的副本上回滚。这意味着如果一个写入虽然报告失败，后续的读取仍然可能会读取这次失败写入的值。If a write succeeded on some replicas but failed on others (for example because the disks on some nodes are full), and overall succeeded on fewer than _&#x77;_&#x72;eplicas, it is not rolled back on the replicas where it succeeded. This means that if _**a write was reported as failed**_, subsequent reads may or may not return the value from that write /_类似脏读，读到了该 回滚的 data_/
 * 如果携带新值的节点失败。需要从旧值节点恢复。
 
 ### Conclusion

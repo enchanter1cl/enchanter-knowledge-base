@@ -26,13 +26,13 @@ public class LoggingController {
 
 ```
 
-Once we’ve loaded the web application, **we’ll be able to trigger those logging lines by simply visiting **_**http://localhost:8080/**_**.**
+Once we’ve loaded the web application, **we’ll be able to trigger those logging lines by simply visiting&#x20;**_**http://localhost:8080/**_**.**
 
 ## 2. Zero Configuration Logging
 
 关于 jar 包依赖
 
-**We shouldn’t worry about importing **_**spring-jcl**_** at all if we’re using a Spring Boot Starter** (which we almost always are). That’s because every starter, like our _spring-boot-starter-web_, depends on _spring-boot-starter-logging,_ which already pulls in _spring-jcl_ for us.
+**We shouldn’t worry about importing&#x20;**_**spring-jcl**_**&#x20;at all if we’re using a Spring Boot Starter** (which we almost always are). That’s because every starter, like our _spring-boot-starter-web_, depends on _spring-boot-starter-logging,_ which already pulls in _spring-jcl_ for us.
 
 ### 2.1 Default Logback Logging
 
@@ -42,9 +42,9 @@ Spring Boot preconfigures it with patterns and ANSI colors to make the standard 
 
 <figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-As we can see, **the default logging level of the Logger is preset to INFO, meaning that **_**TRACE**_** and **_**DEBUG**_** messages are not visible.**
+As we can see, **the default logging level of the Logger is preset to INFO, meaning that&#x20;**_**TRACE**_**&#x20;and&#x20;**_**DEBUG**_**&#x20;messages are not visible.**
 
-In order to activate them without changing the configuration, **we can pass the **_**–debug**_** or **_**–trace**_** arguments on the command line**:
+In order to activate them without changing the configuration, **we can pass the&#x20;**_**–debug**_**&#x20;or&#x20;**_**–trace**_**&#x20;arguments on the command line**:
 
 ```bash
 java -jar target/demo-1.0.jar --debug
@@ -75,7 +75,7 @@ logging.level.root=INFO
 logging.level.com.baeldung=DEBUG
 ```
 
-Finally, we can **change the logging level permanently by using our logging framework **<mark style="color:red;">**configuration file.**</mark>
+Finally, we can **change the logging level permanently by using our logging framework&#x20;**<mark style="color:red;">**configuration file.**</mark>
 
 We mentioned that Spring Boot Starter uses Logback by default. Let’s see how to define a fragment of a Logback configuration file in which we set the level for two separate packages:
 

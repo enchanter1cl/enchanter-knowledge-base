@@ -12,7 +12,7 @@ HTTP 明文传输三大风险，被窃听，被篡改，被冒充。（e.g. 截�
 
 什么是对称加密？比如用户提交的的用户名密码和服务器存的一样才行。加密解密用的相同 secret key.
 
-什么是非对称加密？这就涉及 public key, private key 的概念。private key 是只有_加密者_ 自己保存的 secret key. public key 是发出去的 secret key。
+什么是非对称加密？这就涉及 public key, private key 的概念。private key 是只&#x6709;_&#x52A0;密者_ 自己保存的 secret key. public key 是发出去的 secret key。
 
 下面我们以一个故事场景来理解 HTTPS——假设总部李四和特工张三需要进行加密通信。
 
@@ -177,9 +177,9 @@ The certificate usually contains a `.crt` file and a `.key` file, for example, `
     ```
 
 openssl req -sha512 -new\
-\-subj "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=yourdomain.com"\
-\-key yourdomain.com.key\
-\-out yourdomain.com.csr
+-subj "/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=yourdomain.com"\
+-key yourdomain.com.key\
+-out yourdomain.com.csr
 
 ````
 
