@@ -32,3 +32,36 @@ Beginner Level code version:
         }
     }
 ```
+
+Advanced code version:
+
+```csharp
+public class TestAddressableLoader : MonoBehaviour
+{
+    public string spriteAddress = "Assets/Arts/CharacterAvatars/Character 1.png";
+    public Image targetImage;
+
+    void Start()
+    {
+        LoadAvatar();
+    }
+
+    void LoadAvatar()
+    {
+        Addressables.LoadAssetAsync<Sprite>(spriteAddress).Completed += OnSpriteLoaded;
+    }
+
+    void OnSpriteLoaded(AsyncOperationHandle<Sprite> handle)
+    {
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Sprite loadedSprite = handle.Result;
+            targetImage.sprite = loadedSprite;
+        }
+        else
+        {
+            Debug.LogError("failed load avatar");
+        }
+    }
+}
+```
