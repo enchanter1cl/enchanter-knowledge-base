@@ -52,11 +52,7 @@ private static void OnPlayModeChanged(PlayModeStateChange state)
 
 This method is the heart of the script.
 
-**✅ When you press**&#x20;
-
-**Play**
-
-&#x20;**in the editor:**
+**✅ When you press Play in the editor:**
 
 ```csharp
 if (state == PlayModeStateChange.EnteredPlayMode)
