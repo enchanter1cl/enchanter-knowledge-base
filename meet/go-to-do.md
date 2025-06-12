@@ -19,3 +19,7 @@ June 11 2025
 * [ ] Other scene switch logic
 * [ ] CharacterChoose - merge mine and berke's code
 
+June 12
+
+* [x] `EditorPlayBootstrapper.cs`explaination note
+
