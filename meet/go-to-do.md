@@ -14,12 +14,14 @@ June 11 2025
     If you are working in the `CharacterChoose` scene and enter Play Mode, only the `PersistentManagers` and `MainMenu` scenes will be loaded in the Hierarchy.
 
     When you exit Play Mode, the editor will return to the original scene (`CharacterChoose`) as it was before.
-* [ ] Solve problem of duplicate event systems
-* [ ] Navigation bar - mainMenu
-* [ ] Other scene switch logic
+* [x] Solve problem of duplicate event systems
+* [x] Navigation bar - mainMenu
+* [x] Other scene switch logic
 * [ ] CharacterChoose - merge mine and berke's code
 
 June 12
 
 * [x] `EditorPlayBootstrapper.cs`explaination note
+* [ ] CharacterChoose code merge
+  * [ ] fix: The event OnFlipped fired but callback didn't invoked. bkz `OnFlipped = null`;
 
