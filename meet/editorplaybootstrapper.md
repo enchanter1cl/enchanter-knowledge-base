@@ -1,6 +1,6 @@
 # EditorPlayBootstrapper
 
-This script EditorPlayBootstrapper.cs is an **editor-only utility** in Unity that automates how your game enters **Play Mode** in the **Editor**, especially useful for **bootloader patterns** like yours (with PersistentManagers as the entry point). Here’s a **detailed breakdown**:
+This script `EditorPlayBootstrapper.cs` is an **editor-only utility** in Unity that automates how your game enters **Play Mode** in the **Editor**, especially useful for **bootloader patterns** like yours (with PersistentManagers as the entry point). Here’s a **detailed breakdown**:
 
 ***
 
@@ -70,7 +70,6 @@ if (state == PlayModeStateChange.EnteredPlayMode)
 previousScenePath = SceneManager.GetActiveScene().path;
 ```
 
-*
 *   **Step 2**:
 
     Load your **bootloader entry scene**:
@@ -79,9 +78,8 @@ previousScenePath = SceneManager.GetActiveScene().path;
 SceneManager.LoadScene(BootScenePath, LoadSceneMode.Single);
 ```
 
-*
-  * This replaces your current scene with PersistentManagers.
-    * This ensures your game **always starts the same way**, like in a real build.
+* This replaces your current scene with PersistentManagers.
+  * This ensures your game **always starts the same way**, like in a real build.
 * Optional:
 
 ```
@@ -120,7 +118,7 @@ So you don’t lose your editing context — you go back to where you left off.
 #### **✅ Tips for You**
 
 1. **Make sure PersistentManagers** is marked to **DontDestroyOnLoad** for managers.
-2. This script **only affects the Editor**, not the actual build.
+2. This script **only affects the Editor**, <mark style="color:red;">not the actual build.</mark>
 
 ## why use "initializeOnLoad and static constructor
 
@@ -142,8 +140,7 @@ This is **Editor-only** behavior and only works in classes inside an Editor fold
   * Cannot be instantiated (no new allowed)
   * Can only contain static members
   * Best for utility/helper code
-  * Keeps things self-contained and memory-efficient\
-    🔹&#x20;
+  * Keeps things self-contained and memory-efficient
 
 #### **static EditorPlayBootstrapper()**
 
