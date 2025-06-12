@@ -58,3 +58,4 @@
 * [CardRevealManager](meet/cardrevealmanager.md)
 * [CurrentDifficulty=> SelectedDifficulty](meet/currentdifficulty-greater-than-selecteddifficulty.md)
 * [GO TO DO](meet/go-to-do.md)
+* [EditorPlayBootstrapper](meet/editorplaybootstrapper.md)
