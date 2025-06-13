@@ -1,3 +1,7 @@
+---
+icon: explosion
+---
+
 # GO TO DO
 
 * [ ] This is an unchecked task

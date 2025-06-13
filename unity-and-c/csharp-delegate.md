@@ -1,8 +1,4 @@
----
-icon: bow-arrow
----
-
-# A Delegate In CSharp
+# Csharp Delegate
 
 ### **🎯 What is a Delegate in C#?**
 
