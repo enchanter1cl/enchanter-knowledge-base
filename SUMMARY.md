@@ -50,6 +50,8 @@
 ## UNITY
 
 * [A Delegate In CSharp](unity/a-delegate-in-csharp.md)
+* [Csharp Field and Property](unity/csharp-field-and-property.md)
+* [Struct and Class](unity/struct-and-class.md)
 
 ## MEET
 
