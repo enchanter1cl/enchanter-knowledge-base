@@ -17,11 +17,18 @@ June 11 2025
 * [x] Solve problem of duplicate event systems
 * [x] Navigation bar - mainMenu
 * [x] Other scene switch logic
-* [ ] CharacterChoose - merge mine and berke's code
+* [x] CharacterChoose - merge mine and berke's code
 
 June 12
 
 * [x] `EditorPlayBootstrapper.cs`explaination note
-* [ ] CharacterChoose code merge
-  * [ ] fix: The event OnFlipped fired but callback didn't invoked. bkz `OnFlipped = null`;
+*   [x] CharacterChoose code merge
+
+    * [x] fix: The event OnFlipped fired but callback didn't invoked. bkz `OnFlipped = null`; \[Problem solved. Bug reason: event invoked by CardRoot gameObject but subscription is in CardController component.]
+
+
+
+June 13
+
+* [ ] ScriptableObject containing the list of all characters.
 
