@@ -52,6 +52,7 @@
 * [Csharp Delegate](unity-and-c/csharp-delegate.md)
 * [Csharp Field and Property](unity-and-c/csharp-field-and-property.md)
 * [Csharp Struct and Class](unity-and-c/csharp-struct-and-class.md)
+* [Csharp Async Await Task Yield](unity-and-c/csharp-async-await-task-yield.md)
 * [Addressables.LoadAssetsAsync](unity-and-c/addressables.loadassetsasync/README.md)
   * [Description](unity-and-c/addressables.loadassetsasync/description.md)
 
