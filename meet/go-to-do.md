@@ -36,3 +36,8 @@ June 13
 
 * [ ] ScriptableObject containing the list of all characters.
 
+June 14
+
+* [ ] Character class property interface - encapsulation
+* [ ] How to change branch in version control, in command line
+
