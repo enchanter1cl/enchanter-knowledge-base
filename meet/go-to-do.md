@@ -41,3 +41,9 @@ June 14
 * [ ] Character class property interface - encapsulation
 * [ ] How to change branch in version control, in command line
 
+June 20
+
+* [ ] collection button -> back to mainMenu
+* [ ] characterchoose - back button,
+* [ ] after choose one character, inactive back button
+
