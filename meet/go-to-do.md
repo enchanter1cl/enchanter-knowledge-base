@@ -38,12 +38,16 @@ June 13
 
 June 14
 
-* [ ] Character class property interface - encapsulation
-* [ ] How to change branch in version control, in command line
+* [x] Character class property interface - encapsulation
+* [x] How to change branch in version control, in command line
 
 June 20
 
-* [ ] collection button -> back to mainMenu
-* [ ] characterchoose - back button,
-* [ ] after choose one character, inactive back button
+* [x] collection button -> back to mainMenu
+* [x] characterchoose - back button,
+* [x] after choose one character, inactive back button
+
+June22
+
+* [x] Class \`Character.cs\`&#x20;
 
