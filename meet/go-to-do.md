@@ -49,5 +49,6 @@ June 20
 
 June22
 
-* [x] Class \`Character.cs\`&#x20;
+* [x] Class `Character.cs`  update
+* [x] Random 1 character, Load his/her Addressable avatar, save into `characterToShow.Avatar`
 
