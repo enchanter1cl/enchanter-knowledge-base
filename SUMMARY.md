@@ -58,6 +58,7 @@
 
 ## MEET
 
+* [How To Manage Our Data? Verilerimizi Nasıl Yönetebiliriz?](meet/how-to-manage-our-data-verilerimizi-nasil-yonetebiliriz.md)
 * [GO TO DO](meet/go-to-do.md)
 * [CardRevealManager](meet/cardrevealmanager.md)
 * [CurrentDifficulty=> SelectedDifficulty](meet/currentdifficulty-greater-than-selecteddifficulty.md)
